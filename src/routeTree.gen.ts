@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as LearnRouteImport } from './routes/learn'
 import { Route as PlannerRouteImport } from './routes/planner'
+import { Route as PracticeRouteImport } from './routes/practice'
 import { Route as TutorRouteImport } from './routes/tutor'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +36,11 @@ const PlannerRoute = PlannerRouteImport.update({
   path: '/planner',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PracticeRoute = PracticeRouteImport.update({
+  id: '/practice',
+  path: '/practice',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TutorRoute = TutorRouteImport.update({
   id: '/tutor',
   path: '/tutor',
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/learn': typeof LearnRoute
   '/planner': typeof PlannerRoute
+  '/practice': typeof PracticeRoute
   '/tutor': typeof TutorRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/learn': typeof LearnRoute
   '/planner': typeof PlannerRoute
+  '/practice': typeof PracticeRoute
   '/tutor': typeof TutorRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,22 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/learn': typeof LearnRoute
   '/planner': typeof PlannerRoute
+  '/practice': typeof PracticeRoute
   '/tutor': typeof TutorRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/learn' | '/planner' | '/tutor'
+  fullPaths: '/' | '/dashboard' | '/learn' | '/planner' | '/practice' | '/tutor'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/learn' | '/planner' | '/tutor'
-  id: '__root__' | '/' | '/dashboard' | '/learn' | '/planner' | '/tutor'
+  to: '/' | '/dashboard' | '/learn' | '/planner' | '/practice' | '/tutor'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/learn'
+    | '/planner'
+    | '/practice'
+    | '/tutor'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +92,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   LearnRoute: typeof LearnRoute
   PlannerRoute: typeof PlannerRoute
+  PracticeRoute: typeof PracticeRoute
   TutorRoute: typeof TutorRoute
 }
 
@@ -109,6 +126,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlannerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/practice': {
+      id: '/practice'
+      path: '/practice'
+      fullPath: '/practice'
+      preLoaderRoute: typeof PracticeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tutor': {
       id: '/tutor'
       path: '/tutor'
@@ -124,6 +148,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   LearnRoute: LearnRoute,
   PlannerRoute: PlannerRoute,
+  PracticeRoute: PracticeRoute,
   TutorRoute: TutorRoute,
 }
 export const routeTree = rootRouteImport
